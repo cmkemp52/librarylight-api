@@ -3,6 +3,7 @@ const express = require("express"),
   cookieParser = require("cookie-parser"),
   compression = require("compression"),
   helmet = require("helmet"),
+  cors = require("cors"),
   logger = require("morgan");
 
 require("dotenv").config();
