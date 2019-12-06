@@ -37,16 +37,14 @@ const checkPassword = (enteredPassword, storedPassword) => {
 
 async function login(enteredEmail, enteredPassword) {
   try {
-    console.log("USER LOGIN IS BEING REACHED");
     const response = await db.one(`SELECT * FROM users WHERE email = $1;`, [
       enteredEmail
     ]);
-    const pass = await checkPassword(enteredPassword, response.password);
-    console.log(pass, " USER PASSWORD TEST");
+    await checkPassword(enteredPassword, response.password);
     const token = await createToken(enteredEmail);
     return token;
   } catch (err) {
-    return err.message;
+    return "email and password do not match records";
   }
 }
 async function signup(enteredAccount, enteredEmail, enteredPassword) {
