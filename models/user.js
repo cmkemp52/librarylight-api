@@ -99,7 +99,7 @@ async function tokenCheck(token, account) {
       [token, account]
     );
     if (!response[0]) {
-      reject("Invalid token");
+      reject(response);
     }
     resolve(response[0]);
   });
