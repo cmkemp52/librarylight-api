@@ -57,7 +57,9 @@ async function signup(enteredAccount, enteredEmail, enteredPassword) {
         VALUES ($1, $2, $3) RETURNING id;`,
       [enteredAccount, enteredEmail, hashedPassword]
     );
-    console.log(response.id, " USER ID");
+    if (!response.id) {
+      return "account name taken";
+    }
     await db.none(
       `CREATE TABLE wishlist_id${response.id} (
             id serial primary key,
@@ -88,7 +90,7 @@ async function signup(enteredAccount, enteredEmail, enteredPassword) {
             dateadded DATE NOT NULL DEFAULT (CURRENT_DATE)
           );`
     );
-    return response;
+    return "success";
   } catch (err) {
     return err.message;
   }
