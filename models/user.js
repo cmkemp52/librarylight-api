@@ -94,6 +94,9 @@ async function signup(enteredAccount, enteredEmail, enteredPassword) {
 }
 async function tokenCheck(token, account) {
   return new Promise(async (resolve, reject) => {
+    if (!token || !account) {
+      reject("Please provide access credentials");
+    }
     const response = await db.any(
       `SELECT * FROM users WHERE browser_token = $1 AND account_name = $2;`,
       [token, account]
