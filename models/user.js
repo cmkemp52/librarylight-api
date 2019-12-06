@@ -12,9 +12,8 @@ const hashPassword = password => {
 
 const createToken = async userEmail => {
   const newToken = crypto.randomBytes(16).toString("base64");
-  console.log("THIS IS THE NEW TOKEN:  ", newToken);
   const response = await db.one(
-    `UPDATE users SET browser_token = $1, browser_issue = LOCALTIMESTAMP WHERE email = $2 RETURNING browser_token;`,
+    `UPDATE users SET browser_token = $1, browser_issue = LOCALTIMESTAMP WHERE email = $2 RETURNING browser_token, account_name;`,
     [newToken, userEmail]
   );
 
